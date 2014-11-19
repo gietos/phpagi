@@ -1,4 +1,5 @@
 <?php
+namespace d4rkstar;
  /**
   * phpagi-asmanager.php : PHP Asterisk Manager functions
   * @see https://github.com/welltime/phpagi
@@ -26,10 +27,12 @@
   *
   */
 
+/*
   if(!class_exists('AGI'))
   {
     require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'phpagi.php');
   }
+*/
 
  /**
   * Asterisk Manager class
@@ -39,7 +42,7 @@
   * @example examples/sip_show_peer.php Get information about a sip peer
   * @package phpAGI
   */
-  class AGI_AsteriskManager
+  class AsteriskManager
   {
    /**
     * Config variables

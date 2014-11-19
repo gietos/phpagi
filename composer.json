@@ -1,5 +1,5 @@
 {
-    "name": "d4rkstar/phpagi",
+    "name": "d4rkstar/AGI",
     "type": "library",
     "description": "PHPAGI is a PHP class for the Asterisk Gateway Interface. The package is available for use and distribution under the terms of the GNU Public License.",
     "keywords": ["asterisk","agi","client","call","flow","ivr","telephony","voip"],
@@ -23,7 +23,9 @@
         "php": ">=5.1.0"
 
     },
-    "autoload" : {
-        "files" : ["phpagi.php"]
-     }
+    "autoload": {
+        "psr-4": {
+            "d4rkstar\\": ""
+        }
+    }
 }

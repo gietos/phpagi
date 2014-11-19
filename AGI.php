@@ -1,5 +1,7 @@
 <?php
 
+namespace d4rkstar;
+
 /**
 * phpagi.php : PHP AGI Functions for Asterisk
 * @see https://github.com/welltime/phpagi
@@ -26,10 +28,12 @@
 * @version 2.20
 */
 
+/*
 if (!class_exists('AGI_AsteriskManager'))
 {
     require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'phpagi-asmanager.php');
 }
+*/
 
 define('AST_CONFIG_DIR', '/etc/asterisk/');
 define('AST_SPOOL_DIR', '/var/spool/asterisk/');
