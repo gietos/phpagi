@@ -1,5 +1,5 @@
 <?php
-namespace d4rkstar;
+namespace gietos;
  /**
   * phpagi-asmanager.php : PHP Asterisk Manager functions
   * @see https://github.com/welltime/phpagi

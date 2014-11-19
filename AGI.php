@@ -1,6 +1,6 @@
 <?php
 
-namespace d4rkstar;
+namespace gietos;
 
 /**
 * phpagi.php : PHP AGI Functions for Asterisk
