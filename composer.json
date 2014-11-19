@@ -1,5 +1,5 @@
 {
-    "name": "d4rkstar/AGI",
+    "name": "gietos/phpagi",
     "type": "library",
     "description": "PHPAGI is a PHP class for the Asterisk Gateway Interface. The package is available for use and distribution under the terms of the GNU Public License.",
     "keywords": ["asterisk","agi","client","call","flow","ivr","telephony","voip"],
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "d4rkstar\\": ""
+            "gietos\\": ""
         }
     }
 }
