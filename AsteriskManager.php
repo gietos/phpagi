@@ -107,7 +107,7 @@ namespace gietos;
     * @param string $config is the name of the config file to parse or a parent agi from which to read the config
     * @param array $optconfig is an array of configuration vars and vals, stuffed into $this->config['asmanager']
     */
-    function AGI_AsteriskManager($config=NULL, $optconfig=array())
+    public function __construct($config=NULL, $optconfig=array())
     {
       // load config
       if(!is_null($config) && file_exists($config))
