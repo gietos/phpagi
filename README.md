@@ -31,7 +31,7 @@ Put in `extensions.ael`:
 ```
 context incoming {
     _7XXXXXXXXXX => {
-        AGI(${CONTROL-SCRIPT});
+        AGI(/path/to/agi.php);
         Hangup();
     }
 }
