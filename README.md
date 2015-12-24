@@ -24,7 +24,7 @@ Put there:
 require 'vendor/autoload.php';
 
 $a = new \gietos\AGI\Handler();
-$a->init();
+$a->handleRequest();
 ```
 
 Put in `extensions.ael`:
