@@ -23,8 +23,9 @@ Put there:
 
 require 'vendor/autoload.php';
 
-$a = new \gietos\AGI\Handler();
-$a->handleRequest();
+$agi = new \gietos\AGI\Handler();
+$agi->handleRequest();
+$agi->sayTime();
 ```
 
 Put in `extensions.ael`:
