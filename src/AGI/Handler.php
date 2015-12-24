@@ -94,7 +94,7 @@ class Handler
      * @param string $channel
      * @return array, see evaluate for return information. ['data'] contains description.
      */
-    public function channel_status($channel = '')
+    public function channelStatus($channel = '')
     {
         $ret = $this->evaluate("CHANNEL STATUS $channel");
         switch ($ret['result']) {
@@ -146,7 +146,7 @@ class Handler
      * @param string $key
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 otherwise.
      */
-    public function database_del($family, $key)
+    public function databaseDel($family, $key)
     {
         return $this->evaluate("DATABASE DEL \"$family\" \"$key\"");
     }
@@ -159,7 +159,7 @@ class Handler
      * @param string $keytree
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 otherwise.
      */
-    public function database_deltree($family, $keytree = '')
+    public function databaseDelTree($family, $keytree = '')
     {
         $cmd = "DATABASE DELTREE \"$family\"";
         if ($keytree != '') $cmd .= " \"$keytree\"";
@@ -175,7 +175,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 failure. ['data'] holds the
      *                value
      */
-    public function database_get($family, $key)
+    public function databaseGet($family, $key)
     {
         return $this->evaluate("DATABASE GET \"$family\" \"$key\"");
     }
@@ -188,7 +188,7 @@ class Handler
      * @param string $value
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 otherwise
      */
-    public function database_put($family, $key, $value)
+    public function databasePut($family, $key, $value)
     {
         $value = str_replace("\n", '\n', addslashes($value));
         return $this->evaluate("DATABASE PUT \"$family\" \"$key\" \"$value\"");
@@ -203,7 +203,7 @@ class Handler
      * @param string|int|float $pValue
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 otherwise
      */
-    public function set_global_var($pVariable, $pValue)
+    public function setGlobalVar($pVariable, $pValue)
     {
         if (is_numeric($pValue))
             return $this->evaluate("Set({$pVariable}={$pValue},g);");
@@ -220,7 +220,7 @@ class Handler
      * @param string|int|float $pValue
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 otherwise
      */
-    public function set_var($pVariable, $pValue)
+    public function setVar($pVariable, $pValue)
     {
         if (is_numeric($pValue))
             return $this->evaluate("Set({$pVariable}={$pValue});");
@@ -285,7 +285,7 @@ class Handler
      *
      * This differs from other commands with return DTMF as numbers representing ASCII characters.
      */
-    public function get_data($filename, $timeout = null, $max_digits = null)
+    public function getData($filename, $timeout = null, $max_digits = null)
     {
         return $this->evaluate(rtrim("GET DATA $filename $timeout $max_digits"));
     }
@@ -302,7 +302,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has.
      *                ['data'] holds the value. returns value if $getvalue is TRUE
      */
-    public function get_variable($variable, $getvalue = false)
+    public function getVariable($variable, $getvalue = false)
     {
         $res = $this->evaluate("GET VARIABLE $variable");
 
@@ -323,7 +323,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has.
      *                              ['data'] holds the value.  returns value if $getvalue is TRUE
      */
-    public function get_fullvariable($variable, $channel = false, $getvalue = false)
+    public function getFullVariable($variable, $channel = false, $getvalue = false)
     {
         if ($channel == false) {
             $req = $variable;
@@ -380,7 +380,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is 0 on timeout or not supported, -1 on failure.
      *                Otherwise it is the decimal value of the DTMF tone. Use chr() to convert to ASCII.
      */
-    public function receive_char($timeout = -1)
+    public function receiveChar($timeout = -1)
     {
         return $this->evaluate("RECEIVE CHAR $timeout");
     }
@@ -402,7 +402,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is -1 on error, 0 on hangup, otherwise a decimal
      *                value of the DTMF tone. Use chr() to convert to ASCII.
      */
-    public function record_file($file, $format, $escape_digits = '', $timeout = -1, $offset = null, $beep = false, $silence = null)
+    public function recordFile($file, $format, $escape_digits = '', $timeout = -1, $offset = null, $beep = false, $silence = null)
     {
         $cmd = trim("RECORD FILE $file $format \"$escape_digits\" $timeout $offset");
         if ($beep) $cmd .= ' BEEP';
@@ -420,7 +420,7 @@ class Handler
      *                with no digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
      *                ASCII.
      */
-    public function say_digits($digits, $escape_digits = '')
+    public function sayDigits($digits, $escape_digits = '')
     {
         return $this->evaluate("SAY DIGITS $digits \"$escape_digits\"");
     }
@@ -435,7 +435,7 @@ class Handler
      *                with no digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
      *                ASCII.
      */
-    public function say_number($number, $escape_digits = '')
+    public function sayNumber($number, $escape_digits = '')
     {
         return $this->evaluate("SAY NUMBER $number \"$escape_digits\"");
     }
@@ -451,7 +451,7 @@ class Handler
      *                with no digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
      *                ASCII.
      */
-    public function say_phonetic($text, $escape_digits = '')
+    public function sayPhonetic($text, $escape_digits = '')
     {
         return $this->evaluate("SAY PHONETIC $text \"$escape_digits\"");
     }
@@ -467,7 +467,7 @@ class Handler
      *                with no digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
      *                ASCII.
      */
-    public function say_time($time = null, $escape_digits = '')
+    public function sayTime($time = null, $escape_digits = '')
     {
         if (is_null($time)) $time = time();
         return $this->evaluate("SAY TIME $time \"$escape_digits\"");
@@ -483,7 +483,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is -1 on hangup or error, 0 if the image is sent
      *                or channel does not support image transmission.
      */
-    public function send_image($image)
+    public function sendImage($image)
     {
         return $this->evaluate("SEND IMAGE $image");
     }
@@ -498,7 +498,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is -1 on hangup or error, 0 if the text is sent or
      * channel does not support text transmission.
      */
-    public function send_text($text)
+    public function sendText($text)
     {
         return $this->evaluate("SEND TEXT \"$text\"");
     }
@@ -513,7 +513,7 @@ class Handler
      * @param integer $time until automatic hangup
      * @return array, see evaluate for return information.
      */
-    public function set_autohangup($time = 0)
+    public function setAutoHangup($time = 0)
     {
         return $this->evaluate("SET AUTOHANGUP $time");
     }
@@ -531,7 +531,7 @@ class Handler
      *                    are necessary; if you omit them the number will be considered to be part of the name.
      * @return array, see evaluate for return information.
      */
-    public function set_callerid($cid)
+    public function setCallerId($cid)
     {
         return $this->evaluate("SET CALLERID $cid");
     }
@@ -549,7 +549,7 @@ class Handler
      * @param string $context
      * @return array, see evaluate for return information.
      */
-    public function set_context($context)
+    public function setContext($context)
     {
         return $this->evaluate("SET CONTEXT $context");
     }
@@ -567,7 +567,7 @@ class Handler
      * @param string $extension
      * @return array, see evaluate for return information.
      */
-    public function set_extension($extension)
+    public function setExtension($extension)
     {
         return $this->evaluate("SET EXTENSION $extension");
     }
@@ -580,7 +580,7 @@ class Handler
      * @param string  $class
      * @return array, see evaluate for return information.
      */
-    public function set_music($enabled = true, $class = '')
+    public function setMusic($enabled = true, $class = '')
     {
         $enabled = ($enabled) ? 'ON' : 'OFF';
         return $this->evaluate("SET MUSIC $enabled $class");
@@ -596,7 +596,7 @@ class Handler
      * @param integer $priority
      * @return array, see evaluate for return information.
      */
-    public function set_priority($priority)
+    public function setPriority($priority)
     {
         return $this->evaluate("SET PRIORITY $priority");
     }
@@ -614,7 +614,7 @@ class Handler
      * @param string $value
      * @return array, see evaluate for return information.
      */
-    public function set_variable($variable, $value)
+    public function setVariable($variable, $value)
     {
         $value = str_replace("\n", '\n', addslashes($value));
         return $this->evaluate("SET VARIABLE $variable \"$value\"");
@@ -635,7 +635,7 @@ class Handler
      *                with no digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
      *                ASCII.
      */
-    public function stream_file($filename, $escape_digits = '', $offset = 0)
+    public function streamFile($filename, $escape_digits = '', $offset = 0)
     {
         return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
     }
@@ -648,7 +648,7 @@ class Handler
      * @return array, see evaluate for return information. ['result'] is 1 on sucess, 0 if the channel is not TDD
      *                capable.
      */
-    public function tdd_mode($setting)
+    public function tddMode($setting)
     {
         return $this->evaluate("TDD MODE $setting");
     }
@@ -686,15 +686,10 @@ class Handler
      *                         digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
      *                         ASCII.
      */
-    public function wait_for_digit($timeout = -1)
+    public function waitForDigit($timeout = -1)
     {
         return $this->evaluate("WAIT FOR DIGIT $timeout");
     }
-
-
-    // *********************************************************************************************************
-    // **                             APPLICATIONS                                                                                        **
-    // *********************************************************************************************************
 
     /**
      * Set absolute maximum time of call.
@@ -709,7 +704,7 @@ class Handler
      * @param int $seconds allowed, 0 disables timeout
      * @return array, see evaluate for return information.
      */
-    public function exec_absolutetimeout($seconds = 0)
+    public function execAbsoluteTimeout($seconds = 0)
     {
         return $this->exec('AbsoluteTimeout', $seconds);
     }
@@ -722,7 +717,7 @@ class Handler
      *                hangup, or 0 on non-hangup exit.
      * @param string $args
      */
-    public function exec_agi($command, $args)
+    public function execAgi($command, $args)
     {
         return $this->exec("AGI $command", $args);
     }
@@ -733,7 +728,7 @@ class Handler
      * @param string $language code
      * @return array, see evaluate for return information.
      */
-    public function exec_setlanguage($language = 'en')
+    public function execSetLanguage($language = 'en')
     {
         return $this->exec('Set', 'CHANNEL(language)=' . $language);
     }
@@ -747,7 +742,7 @@ class Handler
      * @param $exten
      * @return array, see evaluate for return information.
      */
-    public function exec_enumlookup($exten)
+    public function execEnumLookup($exten)
     {
         return $this->exec('EnumLookup', $exten);
     }
@@ -768,7 +763,7 @@ class Handler
      * @param string  $url
      * @return array, see evaluate for return information.
      */
-    public function exec_dial($type, $identifier, $timeout = null, $options = null, $url = null)
+    public function execDial($type, $identifier, $timeout = null, $options = null, $url = null)
     {
         return $this->exec('Dial', trim("$type/$identifier" . $this->option_delim . $timeout . $this->option_delim . $options . $this->option_delim . $url, $this->option_delim));
     }
@@ -784,27 +779,9 @@ class Handler
      * @param string $c ;
      * @return array, see evaluate for return information.
      */
-    public function exec_goto($a, $b = null, $c = null)
+    public function execGoto($a, $b = null, $c = null)
     {
         return $this->exec('Goto', trim($a . $this->option_delim . $b . $this->option_delim . $c, $this->option_delim));
-    }
-
-    // *********************************************************************************************************
-    // **                             DERIVED                                                                                             **
-    // *********************************************************************************************************
-
-    /**
-     * setContext - Set context, extension and priority.
-     *
-     * @param string $context
-     * @param string $extension
-     * @param int $priority
-     */
-    public function setContext($context, $extension = 's', $priority = 1)
-    {
-        $this->set_context($context);
-        $this->set_extension($extension);
-        $this->set_priority($priority);
     }
 
     /**
@@ -818,7 +795,7 @@ class Handler
      * @param string $callerid
      * @return array example: 'Name' => $name, 'Number' => $number
      */
-    public function parse_callerid($callerid = null)
+    public function parseCallerId($callerid = null)
     {
         if (is_null($callerid))
             $callerid = $this->request['agi_callerid'];
@@ -854,10 +831,6 @@ class Handler
         return $ret;
     }
 
-    // *********************************************************************************************************
-    // **                             PRIVATE                                                                                             **
-    // *********************************************************************************************************
-
     /**
      * Evaluate an AGI command.
      *
@@ -865,7 +838,7 @@ class Handler
      * @param string $command
      * @return array ('code'=>$code, 'result'=>$result, 'data'=>$data)
      */
-    private function evaluate($command)
+    protected function evaluate($command)
     {
         $broken = ['code' => 500, 'result' => -1, 'data' => ''];
 
