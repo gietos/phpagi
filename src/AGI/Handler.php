@@ -298,18 +298,17 @@ class Handler
      * @link http://www.voip-info.org/wiki-get+variable
      * @link http://www.voip-info.org/wiki-Asterisk+variables
      * @param string  $variable name
-     * @param boolean $getvalue return the value only
-     * @return array, see evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has.
-     *                ['data'] holds the value. returns value if $getvalue is TRUE
+     * @return mixed
      */
-    public function getVariable($variable, $getvalue = false)
+    public function getVariable($variable)
     {
-        $res = $this->evaluate("GET VARIABLE $variable");
+        $response = $this->evaluate("GET VARIABLE $variable");
 
-        if ($getvalue == false)
-            return ($res);
+        if ($response['result'] == 0) {
+            return null;
+        }
 
-        return ($res['data']);
+        return $response['data'];
     }
 
     /**
