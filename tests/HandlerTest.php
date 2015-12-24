@@ -45,7 +45,7 @@ EOT;
         $a = new \gietos\AGI\Handler([
             'in' => $in,
         ]);
-        $a->init();
+        $a->handleRequest();
 
         $this->assertAttributeInstanceOf('gietos\\AGI\\Request', 'request', $a);
         $this->assertAttributeEquals('AGITest.php', 'request', $a->request);

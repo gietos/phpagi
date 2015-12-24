@@ -61,7 +61,7 @@ class Handler
         $this->out = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'w');
     }
 
-    public function init()
+    public function handleRequest()
     {
         $rawRequest = $str = fgets($this->in);
         while ($str != "\n") {
