@@ -25,6 +25,7 @@ agi_priority: 1
 agi_enhanced: 0.0
 agi_accountcode:
 agi_threadid: 139668957538048
+agi_arg_1: test
 
 
 EOT;
@@ -68,5 +69,6 @@ EOT;
         $this->assertAttributeEquals('0.0', 'enhanced', $a->request);
         $this->assertAttributeEquals('', 'accountCode', $a->request);
         $this->assertAttributeEquals('139668957538048', 'threadId', $a->request);
+        $this->assertAttributeEquals(['test'], 'arguments', $a->request);
     }
 }
