@@ -9,6 +9,10 @@ class Request
      */
     public $request;
     /**
+     * @var array Script arguments
+     */
+    public $arguments = [];
+    /**
      * @var string The originating channel (your phone)
      */
     public $channel;

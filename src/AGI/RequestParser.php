@@ -30,6 +30,9 @@ class RequestParser
                 if (isset(self::$namesMap[$matches['key']])) {
                     $matches['key'] = self::$namesMap[$matches['key']];
                 }
+                if (preg_match('arg_\d', $matches['key'])) {
+                    $request->arguments[] = $matches['value'];
+                }
                 if (!property_exists($request, $matches['key'])) {
                     throw new RequestParseException('Unknown Request property: ' . $matches['key']);
                 }
