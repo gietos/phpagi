@@ -73,7 +73,7 @@ class AsteriskManager
      *
      * @param array $config is an array of configuration vars and vals, stuffed into $this->config['asmanager']
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config = [], array $optconfig = [])
     {
 
         // If optconfig is specified, stuff vals and vars into 'asmanager' config array.
