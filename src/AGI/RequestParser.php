@@ -27,7 +27,7 @@ class RequestParser
         $lines = explode("\n", trim($rawRequest));
         foreach ($lines as $line) {
             if (preg_match('/agi_(?P<key>.+):(?P<value>.*)/', $line, $matches)) {
-                if (isset(self::$namesMap[$matches['key']])) {
+                if (array_key_exists($matches['key'], self::$namesMap)) {
                     $matches['key'] = self::$namesMap[$matches['key']];
                 }
                 if (preg_match('/arg_\d+/', $matches['key'])) {

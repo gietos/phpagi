@@ -37,3 +37,10 @@ context incoming {
     }
 }
 ```
+
+## Test
+
+```
+composer install
+phpunit
+```
