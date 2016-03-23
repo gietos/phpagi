@@ -42,5 +42,5 @@ context incoming {
 
 ```
 composer install
-phpunit
+composer test
 ```
