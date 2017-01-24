@@ -683,7 +683,7 @@ class Handler
      *
      * @link http://www.voip-info.org/wiki-wait+for+digit
      * @param integer $timeout in millisecons. Use -1 for the timeout value if you want the call to wait indefinitely.
-     * @return int Digit received
+     * @return null|string Digit received
      * @throws Exception
      */
     public function waitForDigit($timeout = -1)
@@ -691,6 +691,31 @@ class Handler
         $result = $this->evaluate("WAIT FOR DIGIT $timeout");
         if ($result['code'] != '200') {
             throw new Exception('Error while executing WAIT FOR DIGIT cmd');
+        }
+
+        if ($result['result'] == '0') {
+            return null;
+        }
+
+        return chr($result['result']);
+    }
+
+    public function wait($sec)
+    {
+        return $this->exec('wait', $sec);
+    }
+
+    /**
+     * @param string $sound
+     * @return null|string
+     * @throws Exception
+     */
+    public function background($sound)
+    {
+        $result = $this->exec('background', $sound);
+
+        if ($result['code'] != '200') {
+            throw new Exception('Error while executing BACKGROUND cmd');
         }
 
         if ($result['result'] == '0') {
