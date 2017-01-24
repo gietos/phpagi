@@ -2,6 +2,8 @@
 
 namespace gietos\AGI;
 
+use Exception;
+
 /**
  * PHP AGI Functions for Asterisk
  * fork from https://github.com/d4rkstar/phpagi
@@ -681,13 +683,21 @@ class Handler
      *
      * @link http://www.voip-info.org/wiki-wait+for+digit
      * @param integer $timeout in millisecons. Use -1 for the timeout value if you want the call to wait indefinitely.
-     * @return array, see evaluate for return information. ['result'] is 0 if wait completes with no
-     *                         digit received, otherwise a decimal value of the DTMF tone.  Use chr() to convert to
-     *                         ASCII.
+     * @return int Digit received
+     * @throws Exception
      */
     public function waitForDigit($timeout = -1)
     {
-        return $this->evaluate("WAIT FOR DIGIT $timeout");
+        $result = $this->evaluate("WAIT FOR DIGIT $timeout");
+        if ($result['code'] != '200') {
+            throw new Exception('Error while executing WAIT FOR DIGIT cmd');
+        }
+
+        if ($result['result'] == '0') {
+            return null;
+        }
+
+        return chr($result['result']);
     }
 
     /**
