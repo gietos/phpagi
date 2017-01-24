@@ -24,6 +24,42 @@ class Handler
     const AST_STATE_DIALING_OFFHOOK = 8;
     const AST_STATE_PRERING = 9;
 
+    const OPTION_QUEUE_DATA_QUALITY_CALL = 1;
+    const OPTION_QUEUE_ALLOW_CALLEE_HANGUP = 2;
+    const OPTION_QUEUE_ALLOW_CALLER_HANGUP = 4;
+    const OPTION_QUEUE_NO_RETRIES_ON_TIMEOUT = 8;
+    const OPTION_QUEUE_RING_INSTEAD_MOH = 16;
+    const OPTION_QUEUE_STOP_MOH_ON_RINGING = 32;
+    const OPTION_QUEUE_ALLOW_CALLEE_TRANFSER = 64;
+    const OPTION_QUEUE_ALLOW_CALLER_TRANFSER = 128;
+    const OPTION_QUEUE_ALLOW_CALLEE_MONITOR = 256;
+    const OPTION_QUEUE_ALLOW_CALLER_MONITOR = 512;
+    const OPTION_QUEUE_CONTINUE_ON_HANGUP = 1024;
+    const OPTION_QUEUE_IGNORE_FORWARD_REQUESTS = 2048;
+    const OPTION_QUEUE_ALLOW_CALLEE_PARKING = 4096;
+    const OPTION_QUEUE_ALLOW_CALLER_PARKING = 8192;
+    const OPTION_QUEUE_ALLOW_CALLEE_MIX_MONITOR = 16384;
+    const OPTION_QUEUE_ALLOW_CALLER_MIX_MONITOR = 32768;
+    
+    protected static $optionQueueValues = [
+        self::OPTION_QUEUE_DATA_QUALITY_CALL => 'd',
+        self::OPTION_QUEUE_ALLOW_CALLEE_HANGUP => 'h',
+        self::OPTION_QUEUE_ALLOW_CALLER_HANGUP => 'H',
+        self::OPTION_QUEUE_NO_RETRIES_ON_TIMEOUT => 'n',
+        self::OPTION_QUEUE_RING_INSTEAD_MOH => 'r',
+        self::OPTION_QUEUE_STOP_MOH_ON_RINGING => 'R',
+        self::OPTION_QUEUE_ALLOW_CALLEE_TRANFSER => 't',
+        self::OPTION_QUEUE_ALLOW_CALLER_TRANFSER => 'T',
+        self::OPTION_QUEUE_ALLOW_CALLEE_MONITOR => 'w',
+        self::OPTION_QUEUE_ALLOW_CALLER_MONITOR => 'W',
+        self::OPTION_QUEUE_CONTINUE_ON_HANGUP => 'c',
+        self::OPTION_QUEUE_IGNORE_FORWARD_REQUESTS => 'i',
+        self::OPTION_QUEUE_ALLOW_CALLEE_PARKING => 'k',
+        self::OPTION_QUEUE_ALLOW_CALLER_PARKING => 'K',
+        self::OPTION_QUEUE_ALLOW_CALLEE_MIX_MONITOR => 'x',
+        self::OPTION_QUEUE_ALLOW_CALLER_MIX_MONITOR => 'X',
+    ];
+
     /**
      * @var Request
      */
@@ -61,6 +97,19 @@ class Handler
         }
 
         $this->out = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'w');
+    }
+
+    protected function buildOptions($optionSet, array $options)
+    {
+        $optionString = '';
+        for ($i = 0 ; $i < 16 ; ++$i) {
+            $option = pow(2, $i);
+            if ($option & $optionSet) {
+                $optionString .= $options[$option];
+            }
+        }
+
+        return $optionString;
     }
 
     public function handleRequest()
@@ -723,6 +772,21 @@ class Handler
         }
 
         return chr($result['result']);
+    }
+
+    public function queue($queueName, $options, $url = null, $announceoverride = null, $timeout = null, $agi = null, $macro = null, $gosub = null, $rule = null, $position = null)
+    {
+        return $this->exec('queue', $queueName
+            . ',' . $this->buildOptions($options, self::$optionQueueValues)
+            . ',' . $url
+            . ',' . $announceoverride
+            . ',' . $timeout
+            . ',' . $agi
+            . ',' . $macro
+            . ',' . $gosub
+            . ',' . $rule
+            . ',' . $position
+        );
     }
 
     /**
